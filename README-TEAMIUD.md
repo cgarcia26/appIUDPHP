@@ -1,5 +1,5 @@
-Esteban Alejandro Páez Gutiérrez <<PREELEC2202PC-TDS0032>>
-Carlos Esteban García Ochoa <<PREELEC2202PC-TDS0032>>
+Esteban Alejandro Páez Gutiérrez <PREELEC2202PC-TDS0032>
+Carlos Esteban García Ochoa <PREELEC2202PC-TDS0032>
 
 
 
