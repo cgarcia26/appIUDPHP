@@ -23,15 +23,15 @@ class CategoryController extends Controller
                 ]
                 );
 
-        } catch (Exception $th) {
+        } catch (\Exception $th) {
 
-            $th->getMessage();
+            $error = $th->getMessage();
 
             return response()->json(
                 [
                 'code' => 500,
                 'status' => 'error',
-                'data' => $th
+                'data' => $error
                 ]
                 );
         }
@@ -51,15 +51,15 @@ class CategoryController extends Controller
                 ]
                 );
 
-        } catch (Exception $th) {
+        } catch (\Exception $th) {
 
-            $th->getMessage();
+            $error =  $th->getMessage();
 
             return response()->json(
                 [
                 'code' => 500,
                 'status' => 'error',
-                'data' => $th
+                'data' => $error 
                 ]
                 );
         }
@@ -79,15 +79,15 @@ class CategoryController extends Controller
                 ]
                 );
 
-        } catch (Exception $th) {
+        } catch (\Exception $th) {
 
-            $th->getMessage();
+            $error = $th->getMessage();
 
             return response()->json(
                 [
                 'code' => 500,
                 'status' => 'error',
-                'data' => $th
+                'data' => $error
                 ]
                 ); 
         }
@@ -99,9 +99,9 @@ class CategoryController extends Controller
             
             $category = Category::find($id);
 
-            $category-> description = $request->description;
+            $category->description = $request->description;
        
-            $category-> save();
+            $category->save();
 
             return response()->json(
                 [
@@ -111,15 +111,15 @@ class CategoryController extends Controller
                 ]
                 );
 
-        } catch (Exception $th) {
+        } catch (\Exception $th) {
 
-            $th->getMessage();
+            $error = $th->getMessage();
 
             return response()->json(
                 [
                 'code' => 500,
                 'status' => 'error',
-                'data' => $th
+                'data' => $error
                 ]
                 ); 
         }
@@ -131,7 +131,7 @@ class CategoryController extends Controller
          
             $category = Category::find($id);
         
-            $category-> delete();
+            $category->delete();
             
             return response()->json(
                 [
@@ -140,15 +140,15 @@ class CategoryController extends Controller
                 ]
                 );
 
-        } catch (Exception $th) {
+        } catch (\Exception $th) {
             
-            $th->getMessage();
+            $error = $th->getMessage();
 
             return response()->json(
                 [
                 'code' => 500,
                 'status' => 'error',
-                'data' => $th
+                'data' => $error
                 ]
                 ); 
         }

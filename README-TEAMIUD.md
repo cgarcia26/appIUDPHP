@@ -1,38 +1,54 @@
-Esteban Alejandro Páez Gutiérrez <PREELEC2202PC-TDS0032>
-Carlos Esteban García Ochoa <PREELEC2202PC-TDS0032>
+# Evidencia de Aprendizaje 2 
 
+## Módulo:
+### Frameworks MVC
 
+## Integrantes:
+> - Esteban Alejandro Páez Gutiérrez  
+> ***PREELEC2202PC-TDS0032***
+> - Carlos Esteban García Ochoa  
+> ***PREELEC2202PC-TDS0032***
 
-Category:
+## Institución Universitaria Digital de Antioquia
 
-GET: api/category
-Permite consultar todas las categorías
+## Profesor:
+> Daniel Esteban Carcamo
 
-GET: api/category/{id}
-Permite consultar una categoría por un id específico
+## 2022
 
-POST: api/category/store
-Permite crear una nueva categoría
+---
 
-POST: api/category/{id}/update
-Permite actulizar una categoría de un id específico
+# Category:
 
-DELETE: api/category/{id}/destroy
-Permite eliminar una categoría a través del id
+* **GET:** _api/category_  
+  Permite consultar todas las categorías
 
-Post:
+* **GET:** _api/category/{id}_  
+  Permite consultar una categoría por un id específico
 
-GET: api/post
-Permite consultar todos los post
+* **POST:** _api/category/store_  
+  Permite crear una nueva categoría
 
-GET: api/post/{id}
-Permite consultar un post por un id específico
+* **POST:** _api/category/{id}/update_  
+  Permite actulizar una categoría de un id específico
 
-POST: api/post/store
-Permite crear un nuevo post
+* **DELETE:** _api/category/{id}/destroy_  
+  Permite eliminar una categoría a través del id
 
-POST: api/post/{id}/update
-Permite actulizar un post de un id específico
+----
+# Post:
 
-DELETE: api/post/{id}/destroy
-Permite eliminar un post a través del id
+* **GET:** _api/post_  
+  Permite consultar todos los post
+
+* **GET:** _api/post/{id}_  
+  Permite consultar un post por un id específico
+
+* **POST:** _api/post/store_  
+  Permite crear un nuevo post
+
+* **POST:** _api/post/{id}/update_  
+  Permite actulizar un post de un id específico
+
+* **DELETE:** _api/post/{id}/destroy_  
+  Permite eliminar un post a través del id

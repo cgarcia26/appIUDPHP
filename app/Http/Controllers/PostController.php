@@ -22,15 +22,15 @@ class PostController extends Controller
                 ]
                 );
 
-        } catch (Exception $th) {
+        } catch (\Exception $th) {
 
-            $th->getMessage();
+            $error = $th->getMessage();
 
             return response()->json(
                 [
                 'code' => 500,
                 'status' => 'error',
-                'data' => $th
+                'data' => $error
                 ]
                 );
         }
@@ -50,15 +50,15 @@ class PostController extends Controller
                 ]
                 );
 
-        } catch (Exception $th) {
+        } catch (\Exception $th) {
 
-            $th->getMessage();
+            $error = $th->getMessage();
 
             return response()->json(
                 [
                 'code' => 500,
                 'status' => 'error',
-                'data' => $th
+                'data' => $error
                 ]
                 );
         }
@@ -70,23 +70,25 @@ class PostController extends Controller
             
             Post::create($request->all());
 
+            $post = $request->all();
+
             return response()->json(
                 [
                 'code' => 201,
                 'status' => 'ok',
-                'data' => $request->all(),
+                'data' => $post
                 ]
                 );
 
-        } catch (Exception $th) {
+        } catch (\Exception $th) {
 
-            $th->getMessage();
+            $error = $th->getMessage();
 
             return response()->json(
                 [
                 'code' => 500,
                 'status' => 'error',
-                'data' => $th
+                'data' => $error
                 ]
                 ); 
         }
@@ -98,17 +100,7 @@ class PostController extends Controller
             
             $post = Post::find($id);
 
-            if(description){
-                $post-> description = $request->description;
-                $post-> save();
-            }
-            //$post-> name = $request->name;
-            $post-> description = $request->description;
-            //$post-> state = $request->state;
-            //$post-> content = $request->content;
-            //$post-> category_id = $request->category_id; 
-       
-            $post-> save();
+            $post->update($request->all());
 
             return response()->json(
                 [
@@ -118,15 +110,15 @@ class PostController extends Controller
                 ]
                 );
 
-        } catch (Exception $th) {
+        } catch (\Exception $th) {
 
-            $th->getMessage();
+            $error = $th->getMessage();
 
             return response()->json(
                 [
                 'code' => 500,
                 'status' => 'error',
-                'data' => $th
+                'data' => $error
                 ]
                 ); 
         }
@@ -138,7 +130,7 @@ class PostController extends Controller
          
             $post = Post::find($id);
         
-            $post-> delete();
+            $post->delete();
             
             return response()->json(
                 [
@@ -147,15 +139,15 @@ class PostController extends Controller
                 ]
                 );
 
-        } catch (Exception $th) {
+        } catch (\Exception $th) {
             
-            $th->getMessage();
+            $error = $th->getMessage();
 
             return response()->json(
                 [
                 'code' => 500,
                 'status' => 'error',
-                'data' => $th
+                'data' => $error
                 ]
                 ); 
         }
