@@ -5,13 +5,20 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use PhpParser\Node\Expr\Cast;
+use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
 
 class PostController extends Controller
 {
     public function allPost()
     { 
+
+        $jwt = substr($request->header('Authorization', 'token <token>'), 7);
+
         try {
             
+            JWT::decode($jwt, new Key(env('JWT_SECRET'), 'HS256'));
+
             $post = Post::all()->toArray();
 
             return response()->json(
@@ -38,8 +45,13 @@ class PostController extends Controller
 
     public function findPostId($id)
     { 
+
+        $jwt = substr($request->header('Authorization', 'token <token>'), 7);
+
         try {
             
+            JWT::decode($jwt, new Key(env('JWT_SECRET'), 'HS256'));
+
             $post = Post::find($id);
 
             return response()->json(
@@ -66,8 +78,13 @@ class PostController extends Controller
 
     public function store(Request $request )
     {
+
+        $jwt = substr($request->header('Authorization', 'token <token>'), 7);
+
         try {
             
+            JWT::decode($jwt, new Key(env('JWT_SECRET'), 'HS256'));
+
             Post::create($request->all());
 
             $post = $request->all();
@@ -96,8 +113,13 @@ class PostController extends Controller
 
     public function update(Request $request, $id)
     {
+
+        $jwt = substr($request->header('Authorization', 'token <token>'), 7);
+
         try {
-            
+
+            JWT::decode($jwt, new Key(env('JWT_SECRET'), 'HS256'));
+
             $post = Post::find($id);
 
             $post->update($request->all());
@@ -126,8 +148,13 @@ class PostController extends Controller
 
     public function destroy($id)
     {
+
+        $jwt = substr($request->header('Authorization', 'token <token>'), 7);
+
         try {
          
+            JWT::decode($jwt, new Key(env('JWT_SECRET'), 'HS256'));
+
             $post = Post::find($id);
         
             $post->delete();

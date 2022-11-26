@@ -2,36 +2,51 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
+use App\Models\User;
 use Illuminate\Http\Request;
-use PhpParser\Node\Expr\Cast;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
+use Illuminate\Support\Facades\Hash;
 
-class CategoryController extends Controller
+class UserController extends Controller
 {
-
-    public function allCategory()
-    { 
-        
-        $jwt = substr($request->header('Authorization', 'token <token>'), 7);
-
+    
+    public function login(Request $request)
+    {
         try {
             
-            JWT::decode($jwt, new Key(env('JWT_SECRET'), 'HS256'));
+            $email = $request->email;
+            
+            $pass = $request->password;
 
-            $category = Category::all()->toArray();
+            $user = User::firstWhere('email', $email);
 
-            return response()->json(
-                [
-                'code' => 200,
-                'status' => 'ok',
-                'data' =>$category
-                ]
+            $passBD = $user->password;
+
+            if(Hash::check($pass, $passBD)){
+
+                $jwt = JWT::encode([$user], env('JWT_SECRET'), 'HS256');
+
+                return response()->json(
+                    [
+                    'code'=> 200,
+                    'status'=> 'Ok',
+                    'data'=> $user,
+                    'token'=> $jwt
+                    ]
                 );
 
-        } catch (\Exception $th) {
+            }else{
+                return response()->json(
+                    [
+                    'code'=> 401,
+                    'message' => 'usuario o contraseña incorrectos'
+                    ]
+                );
+            };
 
+        } catch (\Exception $th) {
+            
             $error = $th->getMessage();
 
             return response()->json(
@@ -40,53 +55,20 @@ class CategoryController extends Controller
                 'status' => 'error',
                 'data' => $error
                 ]
-                );
+                ); 
         }
     }
 
-    public function findCategoryId($id)
-    { 
-
-        $jwt = substr($request->header('Authorization', 'token <token>'), 7);
-
-        try {
-
-            JWT::decode($jwt, new Key(env('JWT_SECRET'), 'HS256'));
-            
-            $category = Category::find($id);
-
-            return response()->json(
-                [
-                'code' => 200,
-                'status' => 'ok',
-                'data' =>$category
-                ]
-                );
-
-        } catch (\Exception $th) {
-
-            $error =  $th->getMessage();
-
-            return response()->json(
-                [
-                'code' => 500,
-                'status' => 'error',
-                'data' => $error 
-                ]
-                );
-        }
-    }
-
+    
     public function store(Request $request )
     {
-
-        $jwt = substr($request->header('Authorization', 'token <token>'), 7);
-
         try {
             
-            JWT::decode($jwt, new Key(env('JWT_SECRET'), 'HS256'));
+            $request->request->add([
+                'password' => Hash::make($request->input('password'))
+            ]);
 
-            Category::create($request->all());
+            User::create($request->all());
 
             return response()->json(
                 [
@@ -118,18 +100,31 @@ class CategoryController extends Controller
         try {
 
             JWT::decode($jwt, new Key(env('JWT_SECRET'), 'HS256'));
-            
-            $category = Category::find($id);
 
-            $category->description = $request->description;
-       
-            $category->save();
+
+            $pass = $request->passsword;
+
+            if($pass == null){
+
+                $user = User::find($id);
+
+                $user->update($request->all());
+            }else{
+
+                $user = User::find($id);
+
+                $request->request->add([
+                    'password' => Hash::make($request->input('password'))
+                ]);
+
+                $user->update($request->all());
+            }
 
             return response()->json(
                 [
                 'code' => 201,
                 'status' => 'ok',
-                'data' => $category,
+                'data' => $user,
                 ]
                 );
 
@@ -153,12 +148,12 @@ class CategoryController extends Controller
         $jwt = substr($request->header('Authorization', 'token <token>'), 7);
 
         try {
-
-            JWT::decode($jwt, new Key(env('JWT_SECRET'), 'HS256'));
          
-            $category = Category::find($id);
+            JWT::decode($jwt, new Key(env('JWT_SECRET'), 'HS256'));
+
+            $user = User::find($id);
         
-            $category->delete();
+            $user->delete();
             
             return response()->json(
                 [

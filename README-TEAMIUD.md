@@ -35,7 +35,7 @@
 * **DELETE:** _api/category/{id}/destroy_  
   Permite eliminar una categoría a través del id
 
-----
+---
 # Post:
 
 * **GET:** _api/post_  
@@ -52,3 +52,25 @@
 
 * **DELETE:** _api/post/{id}/destroy_  
   Permite eliminar un post a través del id
+
+---
+# User
+
+* **Post** _user/store_   
+  Permite crear un nuevo usuario
+
+* **Post** _user/{id}/update_  
+  Permiete actualizar un usuario de un id específico
+
+* **Delete** _user/{id}/destroy_  
+  Permite eliminar un usuario a través del id
+
+* **Post** _user/login_   
+  Permite ingresar a un usuario existente
+
+---
+
+# Rol
+
+* **Get** _rol_   
+  Peremite consultar todos los roles
