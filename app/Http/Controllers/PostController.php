@@ -10,7 +10,7 @@ use Firebase\JWT\Key;
 
 class PostController extends Controller
 {
-    public function allPost()
+    public function allPost(Request $request)
     { 
 
         $jwt = substr($request->header('Authorization', 'token <token>'), 7);
@@ -19,15 +19,30 @@ class PostController extends Controller
             
             JWT::decode($jwt, new Key(env('JWT_SECRET'), 'HS256'));
 
+            $payload = JWT::decode($jwt, new Key(env('JWT_SECRET'), 'HS256'));
+            
+            $payloadA = (array) $payload;
+
+            if($payloadA[0]->rol_id == 1 || $payloadA[0]->rol_id == 2 || $payloadA[0]->rol_id == 3) {
+
             $post = Post::all()->toArray();
 
-            return response()->json(
-                [
-                'code' => 200,
-                'status' => 'ok',
-                'data' =>$post
-                ]
+                return response()->json(
+                    [
+                    'code' => 200,
+                    'status' => 'ok',
+                    'data' =>$post
+                    ]
+                    );
+
+            }else{
+                return response()->json(
+                    [
+                    'code'=> 401,
+                    'message' => 'usuario no autorizado'
+                    ]
                 );
+            }     
 
         } catch (\Exception $th) {
 
@@ -43,7 +58,7 @@ class PostController extends Controller
         }
     }
 
-    public function findPostId($id)
+    public function findPostId(Request $request, $id)
     { 
 
         $jwt = substr($request->header('Authorization', 'token <token>'), 7);
@@ -52,15 +67,30 @@ class PostController extends Controller
             
             JWT::decode($jwt, new Key(env('JWT_SECRET'), 'HS256'));
 
+            $payload = JWT::decode($jwt, new Key(env('JWT_SECRET'), 'HS256'));
+            
+            $payloadA = (array) $payload;
+
+            if($payloadA[0]->rol_id == 1 || $payloadA[0]->rol_id == 2 || $payloadA[0]->rol_id == 3) {
+
             $post = Post::find($id);
 
-            return response()->json(
-                [
-                'code' => 200,
-                'status' => 'ok',
-                'data' =>$post
-                ]
+                return response()->json(
+                    [
+                    'code' => 200,
+                    'status' => 'ok',
+                    'data' =>$post
+                    ]
+                    );
+
+            }else{
+                return response()->json(
+                    [
+                    'code'=> 401,
+                    'message' => 'usuario no autorizado'
+                    ]
                 );
+            } 
 
         } catch (\Exception $th) {
 
@@ -85,17 +115,32 @@ class PostController extends Controller
             
             JWT::decode($jwt, new Key(env('JWT_SECRET'), 'HS256'));
 
+            $payload = JWT::decode($jwt, new Key(env('JWT_SECRET'), 'HS256'));
+            
+            $payloadA = (array) $payload;
+
+            if($payloadA[0]->rol_id == 2 ) {
+
             Post::create($request->all());
 
             $post = $request->all();
 
-            return response()->json(
-                [
-                'code' => 201,
-                'status' => 'ok',
-                'data' => $post
-                ]
+                return response()->json(
+                    [
+                    'code' => 201,
+                    'status' => 'ok',
+                    'data' => $post
+                    ]
+                    );
+            
+            }else{
+                return response()->json(
+                    [
+                    'code'=> 401,
+                    'message' => 'usuario no autorizado'
+                    ]
                 );
+            } 
 
         } catch (\Exception $th) {
 
@@ -120,17 +165,32 @@ class PostController extends Controller
 
             JWT::decode($jwt, new Key(env('JWT_SECRET'), 'HS256'));
 
+            $payload = JWT::decode($jwt, new Key(env('JWT_SECRET'), 'HS256'));
+            
+            $payloadA = (array) $payload;
+
+            if($payloadA[0]->rol_id == 1 || $payloadA[0]->rol_id == 2) {
+            
             $post = Post::find($id);
 
             $post->update($request->all());
 
-            return response()->json(
-                [
-                'code' => 201,
-                'status' => 'ok',
-                'data' => $post,
-                ]
+                return response()->json(
+                    [
+                    'code' => 201,
+                    'status' => 'ok',
+                    'data' => $post,
+                    ]
+                    );
+
+            }else{
+                return response()->json(
+                    [
+                    'code'=> 401,
+                    'message' => 'usuario no autorizado'
+                    ]
                 );
+            }
 
         } catch (\Exception $th) {
 
@@ -146,7 +206,7 @@ class PostController extends Controller
         }
     }
 
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
 
         $jwt = substr($request->header('Authorization', 'token <token>'), 7);
@@ -155,16 +215,31 @@ class PostController extends Controller
          
             JWT::decode($jwt, new Key(env('JWT_SECRET'), 'HS256'));
 
+            $payload = JWT::decode($jwt, new Key(env('JWT_SECRET'), 'HS256'));
+            
+            $payloadA = (array) $payload;
+
+            if($payloadA[0]->rol_id == 1 || $payloadA[0]->rol_id == 2) {
+
             $post = Post::find($id);
         
             $post->delete();
             
-            return response()->json(
-                [
-                'code' => 204,
-                'status' => 'success'
-                ]
+                return response()->json(
+                    [
+                    'code' => 204,
+                    'status' => 'success'
+                    ]
+                    );
+
+            }else{
+                return response()->json(
+                    [
+                    'code'=> 401,
+                    'message' => 'usuario no autorizado'
+                    ]
                 );
+            } 
 
         } catch (\Exception $th) {
             
