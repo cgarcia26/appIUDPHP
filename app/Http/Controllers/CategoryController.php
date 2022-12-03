@@ -14,17 +14,17 @@ class CategoryController extends Controller
     public function allCategory(Request $request)
     { 
         
-        $jwt = substr($request->header('Authorization', 'token <token>'), 7);
+        //$jwt = substr($request->header('Authorization', 'token <token>'), 7);
 
         try {
             
-            JWT::decode($jwt, new Key(env('JWT_SECRET'), 'HS256'));
+            //JWT::decode($jwt, new Key(env('JWT_SECRET'), 'HS256'));
 
-            $payload = JWT::decode($jwt, new Key(env('JWT_SECRET'), 'HS256'));
+           // $payload = JWT::decode($jwt, new Key(env('JWT_SECRET'), 'HS256'));
             
-            $payloadA = (array) $payload;
+           // $payloadA = (array) $payload;
 
-            if($payloadA[0]->rol_id == 1 || $payloadA[0]->rol_id == 2 || $payloadA[0]->rol_id == 3) {
+            //if($payloadA[0]->rol_id == 1 || $payloadA[0]->rol_id == 2 || $payloadA[0]->rol_id == 3) {
 
             $category = Category::all()->toArray();
 
@@ -36,14 +36,14 @@ class CategoryController extends Controller
                     ]
                     );
 
-            }else{
+            /*}else{
                 return response()->json(
                     [
                     'code'=> 401,
                     'message' => 'usuario no autorizado'
                     ]
                 );
-            }    
+            }  */  
 
         } catch (\Exception $th) {
 
@@ -62,19 +62,21 @@ class CategoryController extends Controller
     public function findCategoryId(Request $request, $id)
     { 
 
-        $jwt = substr($request->header('Authorization', 'token <token>'), 7);
+        //$jwt = substr($request->header('Authorization', 'token <token>'), 7);
 
         try {
 
-            JWT::decode($jwt, new Key(env('JWT_SECRET'), 'HS256'));
+            //JWT::decode($jwt, new Key(env('JWT_SECRET'), 'HS256'));
             
-            $payload = JWT::decode($jwt, new Key(env('JWT_SECRET'), 'HS256'));
+            //$payload = JWT::decode($jwt, new Key(env('JWT_SECRET'), 'HS256'));
             
-            $payloadA = (array) $payload;
+            //$payloadA = (array) $payload;
 
-            if($payloadA[0]->rol_id == 1 || $payloadA[0]->rol_id == 2 || $payloadA[0]->rol_id == 3) {
+            //if($payloadA[0]->rol_id == 1 || $payloadA[0]->rol_id == 2 || $payloadA[0]->rol_id == 3) {
 
             $category = Category::find($id);
+
+
 
                 return response()->json(
                     [
@@ -83,14 +85,14 @@ class CategoryController extends Controller
                     'data' =>$category
                     ]
                     );
-            }else{
+           /* }else{
                 return response()->json(
                     [
                     'code'=> 401,
                     'message' => 'usuario no autorizado'
                     ]
                 );
-            }      
+            }  */    
 
         } catch (\Exception $th) {
 
@@ -109,17 +111,17 @@ class CategoryController extends Controller
     public function store(Request $request )
     {
 
-        $jwt = substr($request->header('Authorization', 'token <token>'), 7);
+       // $jwt = substr($request->header('Authorization', 'token <token>'), 7);
 
         try {
             
-            JWT::decode($jwt, new Key(env('JWT_SECRET'), 'HS256'));
+           /* JWT::decode($jwt, new Key(env('JWT_SECRET'), 'HS256'));
 
             $payload = JWT::decode($jwt, new Key(env('JWT_SECRET'), 'HS256'));
             
             $payloadA = (array) $payload;
 
-            if($payloadA[0]->rol_id == 1) {
+            if($payloadA[0]->rol_id == 1) {*/
 
             Category::create($request->all());
 
@@ -131,14 +133,14 @@ class CategoryController extends Controller
                     ]
                     );
 
-            }else{
+           /* }else{
                 return response()->json(
                     [
                     'code'=> 401,
                     'message' => 'usuario no autorizado'
                     ]
                 );
-            } 
+            } */
 
         } catch (\Exception $th) {
 
@@ -157,17 +159,17 @@ class CategoryController extends Controller
     public function update(Request $request, $id)
     {
 
-        $jwt = substr($request->header('Authorization', 'token <token>'), 7);
+       // $jwt = substr($request->header('Authorization', 'token <token>'), 7);
 
         try {
 
-            JWT::decode($jwt, new Key(env('JWT_SECRET'), 'HS256'));
+           /* JWT::decode($jwt, new Key(env('JWT_SECRET'), 'HS256'));
             
             $payload = JWT::decode($jwt, new Key(env('JWT_SECRET'), 'HS256'));
             
             $payloadA = (array) $payload;
 
-            if($payloadA[0]->rol_id == 1) {
+            if($payloadA[0]->rol_id == 1) {*/
 
             $category = Category::find($id);
 
@@ -183,14 +185,14 @@ class CategoryController extends Controller
                     ]
                     );
 
-            }else{
+           /* }else{
                 return response()->json(
                     [
                     'code'=> 401,
                     'message' => 'usuario no autorizado'
                     ]
                 );
-            } 
+            } */
 
         } catch (\Exception $th) {
 
@@ -209,37 +211,40 @@ class CategoryController extends Controller
     public function destroy(Request $request, $id)
     {
 
-        $jwt = substr($request->header('Authorization', 'token <token>'), 7);
+        //$jwt = substr($request->header('Authorization', 'token <token>'), 7);
 
         try {
 
-            JWT::decode($jwt, new Key(env('JWT_SECRET'), 'HS256'));
+            //JWT::decode($jwt, new Key(env('JWT_SECRET'), 'HS256'));
          
-            $payload = JWT::decode($jwt, new Key(env('JWT_SECRET'), 'HS256'));
+            //$payload = JWT::decode($jwt, new Key(env('JWT_SECRET'), 'HS256'));
             
-            $payloadA = (array) $payload;
+            //$payloadA = (array) $payload;
 
-            if($payloadA[0]->rol_id == 1) {
+            //if($payloadA[0]->rol_id == 1) {
 
             $category = Category::find($id);
         
             $category->delete();
+
+           // $categotryAll = Category::all()->toArray();
             
                 return response()->json(
                     [
                     'code' => 204,
-                    'status' => 'success'
+                    'status' => 'success',
+                    //'data' => $categotryAll
                     ]
                     );
 
-            }else{
+            /*}else{
                 return response()->json(
                     [
                     'code'=> 401,
                     'message' => 'usuario no autorizado'
                     ]
                 );
-            } 
+            } */
 
         } catch (\Exception $th) {
             

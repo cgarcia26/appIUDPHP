@@ -17,6 +17,7 @@ class Post extends Model
         'description',
         'state',
         'content',
-        'category_id'
+        'category_id',
+        'user_id'
     ];
 }

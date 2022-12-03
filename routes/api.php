@@ -42,6 +42,8 @@ Route::post('post/{id}/update', [PostController::class, 'update']);
 
 Route::delete('post/{id}/destroy', [PostController::class, 'destroy']);
 
+Route::get('user', [UserController::class, 'allUser']);
+
 Route::post('user/store', [UserController::class, 'store']);
 
 Route::post('user/{id}/update', [UserController::class, 'update']);
