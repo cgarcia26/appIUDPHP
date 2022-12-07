@@ -172,10 +172,8 @@ class CategoryController extends Controller
             if($payloadA[0]->rol_id == 1) {*/
 
             $category = Category::find($id);
-
-            $category->description = $request->description;
-       
-            $category->save();
+      
+            $category->update($request->all());
 
                 return response()->json(
                     [
